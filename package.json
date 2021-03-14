@@ -1,0 +1,38 @@
+{
+  "name": "microblogging-example-api",
+  "version": "1.0.0",
+  "description": "REST API example with Express",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "lint": "eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsdiaz/microblogging-example-api.git"
+  },
+  "keywords": [
+    "REST",
+    "API",
+    "Express"
+  ],
+  "author": "rsdiaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rsdiaz/microblogging-example-api/issues"
+  },
+  "homepage": "https://github.com/rsdiaz/microblogging-example-api#readme",
+  "dependencies": {
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.22.0",
+    "nodemon": "2.0.7",
+    "standard": "^16.0.3"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
+  }
+}
