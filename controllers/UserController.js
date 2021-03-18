@@ -15,10 +15,7 @@ userController.user = (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
       if (user) return res.status(200).json(user)
-      res.status(404).send({
-        error: 'id not found',
-        status: '404'
-      })
+      res.status(204).end()
     })
     .catch(err => {
       next(err)
@@ -31,17 +28,18 @@ userController.createUser = (req, res, next) => {
       res.sendStatus(200)
     })
     .catch(err => {
-      res.status(500).send(err)
+      next(err)
     })
 }
 
 userController.updateUser = (req, res, next) => {
-  User.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => {
-      res.sendStatus(200)
+  User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(result => {
+      if (result) return res.status(200).json(result)
+      res.status(204).end()
     })
     .catch(err => {
-      res.status(500).send(err)
+      next(err)
     })
 }
 
@@ -49,8 +47,6 @@ userController.deleteUser = (req, res, next) => {
   const { id } = req.params
   User.findByIdAndDelete(id)
     .then(result => {
-      if (result) res.status(204).end()
-      console.log(result)
       res.status(204).end()
     })
     .catch(error => next(error))
@@ -68,14 +64,13 @@ userController.signing = (req, res, next) => {
   User.findOne({ username })
     .then((userInfo) => {
       console.log(userInfo)
-      res.status(200).send(userInfo)
-      /* userInfo.comparePassword(req.body.password)
+      userInfo.comparePassword(req.body.password)
         .then(() => {
           res.status(200).send({ message: 'ok', role: userInfo.role, id: userInfo._id })
         })
         .catch(() => {
           res.status(404).send({ message: 'Invalid credentials' })
-        }) */
+        })
     })
     .catch((err) => {
       console.error(err)
