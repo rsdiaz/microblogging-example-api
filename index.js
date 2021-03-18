@@ -6,6 +6,7 @@ const port = process.env.PORT || 3000
 
 const users = require('./routes/users')
 const auth = require('./routes/auth')
+const notFound = require('./middlewares/notFound')
 
 mongoose.connect(process.env.DB_URI, {
   useNewUrlParser: true,
@@ -26,9 +27,7 @@ app.get('/', (req, res, next) => {
 app.use('/users', users)
 app.use('/signin', auth)
 
-app.use((req, res, next) => {
-  res.status(404).end()
-})
+app.use(notFound)
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
