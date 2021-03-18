@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const port = process.env.PORT || 3000
 
 const users = require('./routes/users')
+const posts = require('./routes/post')
 const auth = require('./routes/auth')
 const notFound = require('./middlewares/notFound')
 
@@ -26,6 +27,7 @@ app.get('/', (req, res, next) => {
 
 app.use('/users', users)
 app.use('/signin', auth)
+app.use('/posts', posts)
 
 app.use(notFound)
 

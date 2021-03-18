@@ -4,9 +4,9 @@ const Schema = mongooose.Schema
 const User = require('../models/User')
 
 const PostSchema = new Schema({
-  user: { type: Schema.ObjectId, ref: 'User' },
-  title: String,
-  description: String,
+  user: { type: Schema.ObjectId, ref: 'User', required: true },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
   publicationDate: { type: Object, default: Date.now }
 })
 
