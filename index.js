@@ -1,7 +1,8 @@
 require('dotenv').config()
+require('./mongo')
 const express = require('express')
 const app = express()
-const mongoose = require('mongoose')
+const cors = require('cors')
 const port = process.env.PORT || 3000
 
 const users = require('./routes/users')
@@ -9,24 +10,17 @@ const posts = require('./routes/post')
 const auth = require('./routes/auth')
 const notFound = require('./middlewares/notFound')
 
-mongoose.connect(process.env.DB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-})
-  .then(() => console.log('Database connection successful'))
-  .catch((err) => console.error(err))
-
-app.use(express.urlencoded({ extended: false }))
+app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 app.get('/', (req, res, next) => {
   res.send('Hello World')
 })
 
 app.use('/users', users)
-app.use('/signin', auth)
+app.use('/', auth)
+app.use('/', auth)
 app.use('/posts', posts)
 
 app.use(notFound)

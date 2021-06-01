@@ -5,8 +5,10 @@ const postController = require('../controllers/PostController')
 const handleError = require('../middlewares/handleError')
 
 router.get('/', postController.posts)
+router.get('/:id', postController.postForId)
 router.get('/all/:id', postController.postsForUserId)
 router.post('/', postController.newPost)
+router.put('/:id', postController.updatePost)
 
 router.use(handleError)
 

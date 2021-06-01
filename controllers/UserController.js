@@ -52,30 +52,4 @@ userController.deleteUser = (req, res, next) => {
     .catch(error => next(error))
 }
 
-userController.signing = (req, res, next) => {
-  const { username, password } = req.body
-
-  if (!username || !password) {
-    return res.status(400).json({
-      error: 'required "username" or "password" field is missing'
-    })
-  }
-
-  User.findOne({ username })
-    .then((userInfo) => {
-      console.log(userInfo)
-      userInfo.comparePassword(req.body.password)
-        .then(() => {
-          res.status(200).send({ message: 'ok', role: userInfo.role, id: userInfo._id })
-        })
-        .catch(() => {
-          res.status(404).send({ message: 'Invalid credentials' })
-        })
-    })
-    .catch((err) => {
-      console.error(err)
-      res.status(500).send({ message: 'Invalid credentials' })
-    })
-}
-
 module.exports = userController

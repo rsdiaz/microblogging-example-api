@@ -12,6 +12,18 @@ postController.posts = (req, res, next) => {
     })
 }
 
+postController.postForId = (req, res, next) => {
+  const { id } = req.params
+  Post.findById(id)
+    .then(result => {
+      if (result) return res.status(200).json(result)
+      res.status(404).send({ error: 'Post not found' })
+    })
+    .catch(err => {
+      next(err)
+    })
+}
+
 postController.postsForUserId = (req, res, next) => {
   Post.find({ user: req.params.id }).sort('-publicationDate').populate('user')
     .then(posts => {
@@ -54,6 +66,24 @@ postController.newPost = (req, res, next) => {
   } else {
     next()
   }
+}
+
+postController.updatePost = (req, res, next) => {
+  const { id } = req.params
+  Post.findByIdAndUpdate(id, req.body, { new: true })
+    .then(result => {
+      if (result) return res.status(200).json(result)
+      res.status(204).end()
+    })
+    .catch(err => {
+      console.log(err)
+      next(err)
+    })
+}
+
+postController.deletePost = (req, res, next) => {
+  const { id } = req.params
+  Post.findByIdAndDelete(id)
 }
 
 module.exports = postController

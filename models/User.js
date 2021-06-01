@@ -11,7 +11,7 @@ const UserSchema = new Schema({
   fullname: String,
   email: { type: String, required: true },
   creationDate: { type: Date, default: Date.now },
-  role: { type: String, enum: ['admin', 'suscriber'], default: 'suscriber' },
+  role: { type: Schema.ObjectId, ref: 'Role' },
   posts: [{ type: Schema.ObjectId, ref: 'Post', default: null }]
 })
 
@@ -34,7 +34,7 @@ UserSchema.methods.comparePassword = function (candidatePassword) {
   return new Promise((resolve, reject) => {
     bcrypt.compare(candidatePassword, this.password)
       .then(isMatch => {
-        console.log(isMatch)
+        // console.log(isMatch)
         if (isMatch) resolve(isMatch)
         else reject(isMatch)
       })
