@@ -8,6 +8,8 @@ const port = process.env.PORT || 3000
 const users = require('./routes/users')
 const posts = require('./routes/post')
 const auth = require('./routes/auth')
+const test = require('./routes/test.routes')
+
 const notFound = require('./middlewares/notFound')
 
 app.use(cors())
@@ -22,6 +24,7 @@ app.use('/users', users)
 app.use('/', auth)
 app.use('/', auth)
 app.use('/posts', posts)
+app.use('/test', test)
 
 app.use(notFound)
 
