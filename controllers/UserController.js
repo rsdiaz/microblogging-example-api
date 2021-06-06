@@ -1,4 +1,5 @@
 const User = require('../models/User')
+
 const userController = {}
 
 userController.users = (req, res, next) => {
@@ -28,6 +29,7 @@ userController.createUser = (req, res, next) => {
       res.sendStatus(200)
     })
     .catch(err => {
+      console.log(err.name)
       next(err)
     })
 }

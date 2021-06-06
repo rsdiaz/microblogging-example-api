@@ -84,6 +84,24 @@ postController.updatePost = (req, res, next) => {
 postController.deletePost = (req, res, next) => {
   const { id } = req.params
   Post.findByIdAndDelete(id)
+    .then(result => {
+      console.log(result)
+      if (!result) res.status(204).end()
+      else {
+        console.log(result)
+        User.findByIdAndUpdate(result.user, { $pull: { posts: result._id } })
+          .then(result => {
+            res.status(200).send(result)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      next(err)
+    })
 }
 
 module.exports = postController

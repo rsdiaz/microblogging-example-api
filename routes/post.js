@@ -9,6 +9,7 @@ router.get('/:id', postController.postForId)
 router.get('/all/:id', postController.postsForUserId)
 router.post('/', postController.newPost)
 router.put('/:id', postController.updatePost)
+router.delete('/:id', postController.deletePost)
 
 router.use(handleError)
 
