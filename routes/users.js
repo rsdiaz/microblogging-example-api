@@ -7,7 +7,7 @@ const verifySingUp = require('../middlewares/verifySignUp')
 
 router.get('/', userController.users)
 router.get('/:id', userController.user)
-router.post('/', [verifySingUp.checkDuplicateUsernameOrEmail], userController.createUser)
+router.post('/', [verifySingUp.checkDuplicateUsernameOrEmail, verifySingUp.checkRoleExisted], userController.createUser)
 router.put('/:id', userController.updateUser)
 router.delete('/:id', userController.deleteUser)
 // router.post('/', userController.signing)

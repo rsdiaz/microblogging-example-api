@@ -24,14 +24,15 @@ const checkDuplicateUsernameOrEmail = (req, res, next) => {
     })
 }
 
-const checkRole = (req, res, next) => {
-  console.log('asdasdasdasd')
+const checkRoleExisted = (req, res, next) => {
+  const { role } = req.body
+  console.log(role)
   next()
 }
 
 const verifySingUp = {
   checkDuplicateUsernameOrEmail,
-  checkRole
+  checkRoleExisted
 }
 
 module.exports = verifySingUp

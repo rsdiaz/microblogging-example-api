@@ -1,5 +1,5 @@
 const User = require('../models/User')
-
+const Role = require('../models/Role')
 const userController = {}
 
 userController.users = (req, res, next) => {
@@ -24,14 +24,27 @@ userController.user = (req, res, next) => {
 }
 
 userController.createUser = (req, res, next) => {
-  User.create(req.body)
-    .then(() => {
+  const { username, email, password, role } = req.body
+  const user = new User({
+    username,
+    email,
+    password
+  })
+  user.save()
+    .then(user => {
+      console.log(user)
+      res.sendStatus(200)
+    })
+/*   User.create(user)
+    .then(user => {
+      Role.find({ name: { $in: role } })
+      console.log(user)
       res.sendStatus(200)
     })
     .catch(err => {
       console.log(err.name)
       next(err)
-    })
+    }) */
 }
 
 userController.updateUser = (req, res, next) => {
